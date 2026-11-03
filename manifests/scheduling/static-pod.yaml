@@ -1,0 +1,16 @@
+# Static pod: copy this file to the kubelet's staticPodPath on a node
+# (default /etc/kubernetes/manifests/). The kubelet runs it without the scheduler,
+# and the API server shows a read-only mirror pod named static-web-<node-name>.
+#   grep staticPodPath /var/lib/kubelet/config.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-web
+  labels:
+    role: static
+spec:
+  containers:
+    - name: web
+      image: nginx:1.27
+      ports:
+        - containerPort: 80
