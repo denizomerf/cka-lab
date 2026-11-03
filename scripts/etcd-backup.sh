@@ -20,6 +20,7 @@ ETCDCTL_API=3 etcdctl snapshot save "${SNAPSHOT}" \
 etcdutl snapshot status "${SNAPSHOT}" --write-out=table
 
 # Rotate old snapshots
-ls -1t "${BACKUP_DIR}"/etcd-*.db | tail -n +"$((KEEP + 1))" | xargs -r rm --
+find "${BACKUP_DIR}" -maxdepth 1 -name 'etcd-*.db' -printf '%T@ %p\n' \
+  | sort -rn | tail -n +"$((KEEP + 1))" | cut -d' ' -f2- | xargs -r rm --
 
 echo "Saved ${SNAPSHOT}"
