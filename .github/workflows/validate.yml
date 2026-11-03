@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Lint YAML
-        run: yamllint -d '{extends: relaxed, rules: {line-length: disable}}' manifests/
+        run: yamllint manifests/
 
       - name: Validate against Kubernetes schemas
         run: |
